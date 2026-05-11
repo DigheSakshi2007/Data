@@ -1,0 +1,79 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice_db        |
+| sys                |
++--------------------+
+6 rows in set (0.31 sec)
+
+mysql> create database demo;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| demo               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice_db        |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use demo;
+Database changed
+mysql> create table student(name varchar(30),id int not null primary key,addres varchar(50),marks int);
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(30) | YES  |     | NULL    |       |
+| id     | int         | NO   | PRI | NULL    |       |
+| addres | varchar(50) | YES  |     | NULL    |       |
+| marks  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> insert into student(marks,id,name,addres)values(35,1,'sakshi','talegaon');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into student values('sakshi',2,'talegaon',55);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(30) | YES  |     | NULL    |       |
+| id     | int         | NO   | PRI | NULL    |       |
+| addres | varchar(50) | YES  |     | NULL    |       |
+| marks  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.10 sec)
+mysql> select * from student;
++--------+----+----------+-------+
+| name   | id | addres   | marks |
++--------+----+----------+-------+
+| sakshi |  1 | talegaon |    35 |
+| sakshi |  2 | talegaon |    55 |
++--------+----+----------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select marks from student;
++-------+
+| marks |
++-------+
+|    35 |
+|    55 |
++-------+
+2 rows in set (0.00 sec)
