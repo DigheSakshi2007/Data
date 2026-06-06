@@ -1,0 +1,256 @@
+mysql> use sys;
+Database changed
+mysql> select * from employee;
++-----+--------+------+--------+
+| eid | ename  | dept | salary |
++-----+--------+------+--------+
+|   1 | adarsh | it   |  50000 |
+|   2 | rahul  | it   |  70000 |
+|   3 | amit   | hr   |  60000 |
+|   4 | neha   | hr   |  55000 |
++-----+--------+------+--------+
+4 rows in set (0.04 sec)
+mysql> select ename,dept,salary, avg(salary) over(partition by dept)as deptavg from employee;
++--------+------+--------+------------+
+| ename  | dept | salary | deptavg    |
++--------+------+--------+------------+
+| amit   | hr   |  60000 | 57500.0000 |
+| neha   | hr   |  55000 | 57500.0000 |
+| adarsh | it   |  50000 | 60000.0000 |
+| rahul  | it   |  70000 | 60000.0000 |
++--------+------+--------+------------+
+4 rows in set (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| class              |
+| colege             |
+| college            |
+| college1           |
+| demo               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice_db        |
+| school             |
+| sys                |
++--------------------+
+11 rows in set (0.02 sec)
+
+mysql> use college1
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_college1 |
++--------------------+
+| department         |
+| employee           |
+| employee11         |
+| employee12         |
+| marks              |
+| marks_student      |
+| student            |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from student;
++----+--------+-------+
+| id | name   | marks |
++----+--------+-------+
+|  1 | Adarsh |    85 |
+|  2 | Rahul  |    90 |
+|  3 | Amit   |    78 |
++----+--------+-------+
+3 rows in set (0.01 sec)
+
+mysql> use colege;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_colege |
++------------------+
+| course           |
+| employee         |
+| student          |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | ram   |
+|  2 | sham  |
+|  3 | rahul |
++----+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from course;
++----+--------+
+| id | name   |
++----+--------+
+|  2 | ram    |
+|  3 | rahul  |
+|  4 | roshan |
+|  5 | sham   |
++----+--------+
+4 rows in set (0.01 sec)
+
+mysql> use college;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| competition       |
+| competition1      |
+| student           |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++---------+--------+---------+
+| sreg_no | s_name | s_class |
++---------+--------+---------+
+|       1 | sakshi | sy      |
+|       3 | rahul  | ty      |
+|       4 | arti   | fy      |
+|       5 | rita   | sy      |
++---------+--------+---------+
+4 rows in set (0.01 sec)
+
+mysql> use college1
+Database changed
+mysql> select * from student;
++----+--------+-------+
+| id | name   | marks |
++----+--------+-------+
+|  1 | Adarsh |    85 |
+|  2 | Rahul  |    90 |
+|  3 | Amit   |    78 |
++----+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select name,marks, avg(marks) over(partition by name)as nameavg from student;
++--------+-------+---------+
+| name   | marks | nameavg |
++--------+-------+---------+
+| Adarsh |    85 | 85.0000 |
+| Amit   |    78 | 78.0000 |
+| Rahul  |    90 | 90.0000 |
++--------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> use sys;
+Database changed
+mysql> select * from employee;
++-----+--------+------+--------+
+| eid | ename  | dept | salary |
++-----+--------+------+--------+
+|   1 | adarsh | it   |  50000 |
+|   2 | rahul  | it   |  70000 |
+|   3 | amit   | hr   |  60000 |
+|   4 | neha   | hr   |  55000 |
++-----+--------+------+--------+
+4 rows in set (0.00 sec)
+mysql> select ename,salary, rank() over(order by salary desc)as salaryrank from employee;
++--------+--------+------------+
+| ename  | salary | salaryrank |
++--------+--------+------------+
+| rahul  |  70000 |          1 |
+| amit   |  60000 |          2 |
+| neha   |  55000 |          3 |
+| adarsh |  50000 |          4 |
++--------+--------+------------+
+4 rows in set (0.00 sec)
+mysql> use college1;
+Database changed
+mysql> select name,marks,rank() over(order by marks desc) as rank_num from student;
++--------+-------+----------+
+| name   | marks | rank_num |
++--------+-------+----------+
+| Rahul  |    90 |        1 |
+| Adarsh |    85 |        2 |
+| Amit   |    78 |        3 |
++--------+-------+----------+
+3 rows in set (0.01 sec)
+mysql> use sys;
+Database changed
+mysql>  SELECT ename,salary, ntile(2) OVER(ORDER BY salary DESC) AS group_num FROM Employee;
++--------+--------+-----------+
+| ename  | salary | group_num |
++--------+--------+-----------+
+| rahul  |  70000 |         1 |
+| amit   |  60000 |         1 |
+| neha   |  55000 |         2 |
+| adarsh |  50000 |         2 |
++--------+--------+-----------+
+4 rows in set (0.01 sec)
+
+mysql>  SELECT ename,salary, ntile(1) OVER(ORDER BY salary DESC) AS group_num FROM Employee;
++--------+--------+-----------+
+| ename  | salary | group_num |
++--------+--------+-----------+
+| rahul  |  70000 |         1 |
+| amit   |  60000 |         1 |
+| neha   |  55000 |         1 |
+| adarsh |  50000 |         1 |
++--------+--------+-----------+
+4 rows in set (0.01 sec)
+
+mysql>  SELECT ename,salary, ntile(3) OVER(ORDER BY salary DESC) AS group_num FROM Employee;
++--------+--------+-----------+
+| ename  | salary | group_num |
++--------+--------+-----------+
+| rahul  |  70000 |         1 |
+| amit   |  60000 |         1 |
+| neha   |  55000 |         2 |
+| adarsh |  50000 |         3 |
++--------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT ename,salary, ntile(4) OVER(ORDER BY salary DESC) AS group_num FROM Employee;
++--------+--------+-----------+
+| ename  | salary | group_num |
++--------+--------+-----------+
+| rahul  |  70000 |         1 |
+| amit   |  60000 |         2 |
+| neha   |  55000 |         3 |
+| adarsh |  50000 |         4 |
++--------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT ename,salary, ntile(5) OVER(ORDER BY salary DESC) AS group_num FROM Employee;
++--------+--------+-----------+
+| ename  | salary | group_num |
++--------+--------+-----------+
+| rahul  |  70000 |         1 |
+| amit   |  60000 |         2 |
+| neha   |  55000 |         3 |
+| adarsh |  50000 |         4 |
++--------+--------+-----------+
+4 rows in set (0.01 sec)
+
+mysql>  SELECT ename,salary, lag(salary) OVER(ORDER BY eid) AS previous_salary FROM Employee;
++--------+--------+-----------------+
+| ename  | salary | previous_salary |
++--------+--------+-----------------+
+| adarsh |  50000 |            NULL |
+| rahul  |  70000 |           50000 |
+| amit   |  60000 |           70000 |
+| neha   |  55000 |           60000 |
++--------+--------+-----------------+
+4 rows in set (0.01 sec)
+
+mysql>  SELECT ename,salary, lead(salary) OVER(ORDER BY eid) AS next_salary FROM Employee;
++--------+--------+-------------+
+| ename  | salary | next_salary |
++--------+--------+-------------+
+| adarsh |  50000 |       70000 |
+| rahul  |  70000 |       60000 |
+| amit   |  60000 |       55000 |
+| neha   |  55000 |        NULL |
++--------+--------+-------------+
+4 rows in set (0.00 sec)
